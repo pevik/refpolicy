@@ -5,6 +5,11 @@
 
 /run/dnsmasq.*			--	gen_context(system_u:object_r:dnsmasq_var_run_t,s0)
 /run/libvirt/network(/.*)?		gen_context(system_u:object_r:dnsmasq_var_run_t,s0)
+/run/(lxc|lxd-bridge|NetworkManager)/dnsmasq\.pid	--	gen_context(system_u:object_r:dnsmasq_var_run_t,s0)
+/run/NetworkManager/dnsmasq\.conf   gen_context(system_u:object_r:dnsmasq_etc_t,s0)
+/run/nm-dns-dnsmasq\.conf   gen_context(system_u:object_r:dnsmasq_etc_t,s0)
+/run/nm-dnsmasq-.+\.pid	--	gen_context(system_u:object_r:dnsmasq_var_run_t,s0)
+/run/sendsigs\.omit\.d/.*dnsmasq\.pid	--	gen_context(system_u:object_r:dnsmasq_var_run_t,s0)
 
 /usr/bin/dnsmasq		--	gen_context(system_u:object_r:dnsmasq_exec_t,s0)
 
@@ -13,7 +18,11 @@
 
 /usr/sbin/dnsmasq		--	gen_context(system_u:object_r:dnsmasq_exec_t,s0)
 
-/var/lib/misc/dnsmasq\.leases	--	gen_context(system_u:object_r:dnsmasq_lease_t,s0)
 /var/lib/dnsmasq(/.*)?			gen_context(system_u:object_r:dnsmasq_lease_t,s0)
+/var/lib/lxd-bridge/dnsmasq\..+\.leases	--	gen_context(system_u:object_r:dnsmasq_lease_t,s0)
+/var/lib/lxd/networks/\.*/dnsmasq\.leases	--	gen_context(system_u:object_r:dnsmasq_lease_t,s0)
+/var/lib/lxd/networks/\.+/dnsmasq\.pid	--	gen_context(system_u:object_r:dnsmasq_var_run_t,s0)
+/var/lib/misc/dnsmasq(\..+)?\.leases	--	gen_context(system_u:object_r:dnsmasq_lease_t,s0)
+/var/lib/NetworkManager/dnsmasq-.+\.leases	--	gen_context(system_u:object_r:dnsmasq_lease_t,s0)
 
 /var/log/dnsmasq(.*)?\.log(\..+)	--	gen_context(system_u:object_r:dnsmasq_var_log_t,s0)
